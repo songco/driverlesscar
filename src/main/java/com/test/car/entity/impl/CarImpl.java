@@ -33,7 +33,7 @@ public class CarImpl implements Car {
         if (this.parkingLot.contains(this) && x > 0 && y > 0) {
             cdr.audit("Init", this, "Success");
         } else {
-            throw new IllegalArgumentException("parking lot size or car position not valid");
+            throw new IllegalArgumentException("Car position not valid in parking lot:" + this.toString());
         }
     }
 
@@ -44,7 +44,7 @@ public class CarImpl implements Car {
             Command cmd = Commands.of(command);
             cmd.execute(this);
             if (!parkingLot.contains(this)) {
-                throw new InvalidCarStateException("Car go out side parking lot");
+                throw new InvalidCarStateException("Car is out side of parking lot");
             }
         } catch (CarException e) {
             cdr.audit(command, this, "Exception-" + e.getMessage());
@@ -80,8 +80,19 @@ public class CarImpl implements Car {
     }
 
     @Override
+    public void moveBack() throws CarException {
+        this.x -= orientation.getOffsetX();
+        this.y -= orientation.getOffsetY();
+    }
+
+    @Override
     public void turnRight() throws CarException {
-        this.orientation = this.orientation.clockwiseNext();
+        this.orientation = this.orientation.turnRight();
+    }
+
+    @Override
+    public void turnLeft() throws CarException {
+        this.orientation = this.orientation.turnLeft();
     }
 
     public String toString() {

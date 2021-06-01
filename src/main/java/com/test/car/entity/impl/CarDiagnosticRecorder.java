@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CarDiagnosticRecorder {
     private static final int MAX_RECODS = 1000;
-    private List<Record> records = new LinkedList<Record>();
+    private final List<Record> records = new LinkedList<Record>();
 
     public void audit(String command, Car car, String msg) {
         Record rec = new Record(command, car.toString(), System.currentTimeMillis(), msg);
@@ -38,7 +38,9 @@ public class CarDiagnosticRecorder {
         private String msg;
 
         public String toString() {
-            return String.format("%s - CMD: %10s -> State: %s, %s", Instant.ofEpochMilli(time), command, state, msg);
+
+            return String.format("%s - CMD: %10s -> State: %s, %s", Instant.ofEpochMilli(time),
+                    command, state, msg);
         }
     }
 }

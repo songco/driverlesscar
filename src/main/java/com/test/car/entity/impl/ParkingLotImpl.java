@@ -12,7 +12,7 @@ public class ParkingLotImpl implements ParkingLot {
         this.x = x;
         this.y = y;
         if (x < 1 || y < 1) {
-            throw new IllegalArgumentException("parking lot must greater than (1, 1)");
+            throw new IllegalArgumentException("Parking lot size must greater or equal than (1, 1)");
         }
     }
 

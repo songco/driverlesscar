@@ -16,7 +16,11 @@ public interface Car {
 
     void moveForward() throws CarException;
 
+    void moveBack() throws CarException;
+
     void turnRight() throws CarException;
+
+    void turnLeft() throws CarException;
 
     static Car getCar(int x, int y, Orientation orientation, int plx, int ply) {
         return new CarImpl(x, y, orientation, ParkingLot.getParkingLot(plx, ply));

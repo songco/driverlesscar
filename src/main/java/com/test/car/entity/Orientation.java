@@ -1,43 +1,36 @@
 package com.test.car.entity;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public enum Orientation {
-    North(0, 1),
-    East(1, 0),
-    South(0, -1),
-    West(-1, 0);
+    North(1),
+    East(2),
+    South(3),
+    West(4);
 
-    private int id;
-    private int offsetX;
-    private int offsetY;
+    private final int id;
 
-    private static final Map<Orientation, Orientation> nextMap = new HashMap<>(4);
+    private static final Orientation[] nextArray = new Orientation[]{West, North, East, South, West, North};
+    private int[] offsetArray = new int[]{0, 0, 1, 0, -1, 0};
 
-    static {
-        nextMap.put(North, East);
-        nextMap.put(East, South);
-        nextMap.put(South, West);
-        nextMap.put(West, North);
-    }
-
-    Orientation(int xOffset, int yOffset) {
-        this.offsetX = xOffset;
-        this.offsetY = yOffset;
+    Orientation(int id) {
+        this.id = id;
     }
 
     public int getOffsetX() {
-        return offsetX;
+        return offsetArray[id];
     }
 
     public int getOffsetY() {
-        return offsetY;
+        return offsetArray[id + 1];
     }
 
-    public Orientation clockwiseNext() {
-        return nextMap.get(this);
+    public Orientation turnRight() {
+        return nextArray[id + 1];
+    }
+
+    public Orientation turnLeft() {
+        return nextArray[id - 1];
     }
 
     public static Orientation of(String orientation) {

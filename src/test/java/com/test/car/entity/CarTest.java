@@ -52,7 +52,7 @@ public class CarTest {
                 Arguments.of(1, 1, Orientation.East, 3, 1),
                 Arguments.of(4, 4, Orientation.South, 4, 2),
                 Arguments.of(4, 3, Orientation.West, 2, 3)
-                );
+        );
     }
 
     @ParameterizedTest

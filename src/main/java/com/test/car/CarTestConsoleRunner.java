@@ -1,5 +1,6 @@
 package com.test.car;
 
+import com.test.car.command.Commands;
 import com.test.car.entity.Car;
 import com.test.car.entity.Orientation;
 import com.test.car.entity.ParkingLot;
@@ -55,6 +56,7 @@ public class CarTestConsoleRunner {
             if (command.equals("quit")) {
                 line();
                 System.out.println("Bye~");
+                line();
                 break;
             }
             try {
@@ -64,6 +66,7 @@ public class CarTestConsoleRunner {
                 System.out.println("Invalid car command: " + command);
             } catch (InvalidCarStateException e) {
                 System.out.println("Car enter invalid state, exit.");
+                line();
                 break;
             } catch (CarException e) {
                 System.out.println("Car exception, exit.");
@@ -113,14 +116,12 @@ public class CarTestConsoleRunner {
     private void commandMessage() {
         line();
         System.out.println("Driver less car is ready in parking lot, input your command to move the car.");
-        System.out.println("Command examples:");
-        System.out.println("\t `move`      - move forward 1 step");
-        System.out.println("\t `forward`   - alias for move");
-        System.out.println("\t `go`        - alias for move");
-        System.out.println("\t `turn`      - turn right(clockwise)");
-        System.out.println("\t `right`     - alias for turn");
-        System.out.println("\t `clockwise` - alias for turn");
-        System.out.println("\t `quit`      - quit driver less car");
+        System.out.println("Supported commands(ignore case):");
+        Commands.getCommands().forEach(cmd -> {
+            System.out.println(String.format("   %-12s  ~  %s, also support alias: %s.", cmd.getName(),
+                    cmd.getDescription()
+                    , Arrays.toString(cmd.getNameAlias().toArray())));
+        });
     }
 
     private void line() {
